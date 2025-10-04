@@ -13,6 +13,7 @@ const TRAINING_TIMES = 50;
 function App() {
   const [ready, setReady] = useState(false);
   const [showTitle, setShowTitle] = useState(true);
+  const [showPercentTraining, setShowPercentTraining] = useState("");
   const [startPrediction, setStartPrediction] = useState(false);
   const [trainedLabels, setTrainedLabels] = useState(new Set());
   const [showIcon, setShowIcon] = useState(false);
@@ -25,12 +26,12 @@ function App() {
   const gestureIcons = {
     "none": "",
     "point_right": "👉",
-    // "point_left": "👈",
-    // "thumbs_up": "👍",
-    // "thumbs_down": "👎",
-    // "victory": "✌️",
-    // "ok": "👌",
-    // "heart": "❤️",
+    "point_left": "👈",
+    "thumbs_up": "👍",
+    "thumbs_down": "👎",
+    "victory": "✌️",
+    "ok": "👌",
+    "heart": "❤️",
   };
 
   const init = async () => {
@@ -59,7 +60,8 @@ function App() {
   const train = async (label) => {
     console.log(`Training for ${label}`);
     for (let i = 0; i < TRAINING_TIMES; i++) {
-      console.log(`Progress: ${parseInt((i + 1) * 100 / TRAINING_TIMES)}%`);
+      // console.log(`Progress: ${parseInt((i + 1) * 100 / TRAINING_TIMES)}%`);
+      setShowPercentTraining(`${parseInt((i + 1) * 100 / TRAINING_TIMES)}%`);
       await training(label);
     }
 
@@ -124,12 +126,14 @@ function App() {
           <h2 className='title'>You can train the data</h2>
           <button className='btn' onClick={() => train("none")}>Training None</button>
           <button className='btn' onClick={() => train("point_right")}>Training 👉</button>
-          {/* <button className='btn' onClick={() => train("point_left")}>Training 👈</button>
+          <button className='btn' onClick={() => train("point_left")}>Training 👈</button>
           <button className='btn' onClick={() => train("thumbs_up")}>Training 👍</button>
           <button className='btn' onClick={() => train("thumbs_down")}>Training 👎</button>
           <button className='btn' onClick={() => train("victory")}>Training ✌️</button>
           <button className='btn' onClick={() => train("ok")}>Training 👌</button>
-          <button className='btn' onClick={() => train("heart")}>Training ❤️</button> */}
+          <button className='btn' onClick={() => train("heart")}>Training ❤️</button>
+
+          <h2 className='percentage'>{showPercentTraining}</h2>
         </div>) : 
          (showTitle && <h2 className='title'>We are setting up camera</h2>)
         }

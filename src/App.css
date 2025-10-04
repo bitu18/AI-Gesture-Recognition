@@ -64,6 +64,11 @@
   font-size: 2rem;
 }
 
+.percentage {
+  margin: 20px 0;
+  font-size: 3rem;
+}
+
 .gesture {
   font-size: 10rem;
 }
